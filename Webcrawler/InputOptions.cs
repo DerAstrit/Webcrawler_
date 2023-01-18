@@ -2,40 +2,53 @@
 
 public class InputOptions
 {
-    public void Options()
+
+
+    public void WriteOptions()
     {
         Console.WriteLine("type what option you want to use\n" +
                           "\n" +
-                          "Single Site Download = --single\n" +
-                          "Multiple Site Download = --multiple\n" +
-                          "Show statistic = --stats");
-        
-        
-        Linkfinder linkFinder = new Linkfinder();
-        WebsiteDownloader websiteDownloader = new WebsiteDownloader();
-        
-        string chosenOption = Console.ReadLine();
-        string? url;
+                          "Single Site Download = single\n" +
+                          "Multiple Site Download = multiple\n" +
+                          "Show statistic = stats\n");
+    }
+    
+    public void SelectOptions()
+    {
+        string? chosenOption = Console.ReadLine();
+
         switch (chosenOption)
         {
-            case "--single":
-                
-                url = linkFinder.InputUrl();
-                websiteDownloader.DownloadWebsite(url);
+            case "single":
+                Single();
                 break;
             
-            case "--multiple":
-                ;
+            case "multi":
+                Multi();
                 break;
             
-            case "--stats":
-                
-                
-                url = linkFinder.InputUrl();
-                linkFinder.ShowStats(url);
-                
+            case "stats":
+                Stats();
                 break;
 
         }
+    }
+    public void Single()
+        {
+            Linkfinder linkFinder = new Linkfinder(); 
+            WebsiteDownloader websiteDownloader = new WebsiteDownloader(); 
+            string? url = linkFinder.InputUrl(); 
+            websiteDownloader.DownloadWebsite(url);
+        }
+
+    public void Multi()
+    {
+        
+    }
+    public void Stats()
+    {
+        Linkfinder linkFinder = new Linkfinder();
+        string? url = linkFinder.InputUrl();
+        linkFinder.ShowStats(url);
     }
 }

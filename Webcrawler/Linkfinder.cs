@@ -12,7 +12,7 @@ public class Linkfinder
     
     public string? InputUrl()
     {
-        Console.WriteLine("Please Insert the Url you want to Download");
+        Console.WriteLine("\nPlease Insert the Url you want to Download");
         string? url = Console.ReadLine();
         return url;
     }

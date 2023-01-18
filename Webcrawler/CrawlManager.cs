@@ -5,24 +5,26 @@ namespace Webcrawler;
 
 public class CrawlManager
 {
-    InputOptions inputOptions = new InputOptions();
+    InputOptions _inputOptions = new InputOptions();
+    WebsiteDownloader _websiteDownloader = new WebsiteDownloader();
     
     public void Intro()
-    {
-       Console.WriteLine("Welcome to the Webcrawler \n" +
-                         "This Tool is for learn purpuses and should not be abused \n" +
-                         "THANKS!\n" +
-                         "");
+    { 
+        Console.WriteLine("Welcome to the Webcrawler \n" +
+                        "This Tool is for learn purpuses and should not be abused \n" +
+                        "THANKS!\n" +
+                        "");
 
     }
 
     public void Start()
     {
         Intro();
-        inputOptions.Options();
+        _inputOptions.WriteOptions();
+        _inputOptions.SelectOptions();
+ 
 
-        
-        
+
     }
 
 }
