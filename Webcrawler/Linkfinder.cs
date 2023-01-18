@@ -17,11 +17,11 @@ public class Linkfinder
         return url;
     }
 
-    public List<string> ParseLinks(string? url)
+    public static List<string> ParseLinks(string? url)
     {
         var links = new List<string>();
 
-// Create a new instance of the Chrome driver
+        // Create a new instance of the Chrome driver
         using (var driver = new ChromeDriver())
         {
             // Navigate to the website

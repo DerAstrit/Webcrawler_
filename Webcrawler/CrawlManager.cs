@@ -22,9 +22,6 @@ public class CrawlManager
         Intro();
         _inputOptions.WriteOptions();
         _inputOptions.SelectOptions();
- 
-
-
     }
 
 }

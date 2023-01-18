@@ -10,17 +10,17 @@ public class WebsiteDownloader
     {
         // Create directory to store website if it doesn't exist
         Console.WriteLine("\nWrite the Path of the Directory that you want to save the files from");
-        
+
         string? dir = Console.ReadLine();
         if (!Directory.Exists(dir))
         {
             Directory.CreateDirectory(dir);
         }
-        
+
         // Download HTML from website
         HtmlWeb web = new HtmlWeb();
         var doc = web.Load(url);
-        
+
         // Save HTML to file
         string? htmlPath = $"{dir}/index.html";
         File.WriteAllText(htmlPath, doc.DocumentNode.OuterHtml);
@@ -37,7 +37,7 @@ public class WebsiteDownloader
             {
                 string cssUrl = cssNode.Attributes["href"].Value;
                 string cssPath = $"{dir}/{Path.GetFileName(cssUrl)}";
-                
+
                 try
                 {
                     DownloadFile(baseUrl, cssUrl, cssPath);
@@ -45,7 +45,7 @@ public class WebsiteDownloader
                 catch (WebException ex)
                 {
                     //Log the exception or do any other error handling
-                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message);
+                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message + "\n  resources may be hosted on external servers!!!");
                 }
             }
         }
@@ -57,7 +57,7 @@ public class WebsiteDownloader
             {
                 string imgUrl = imgNode.Attributes["src"].Value;
                 string imgPath = $"{dir}/{Path.GetFileName(imgUrl)}";
-                
+
                 try
                 {
                     DownloadFile(baseUrl, imgUrl, imgPath);
@@ -65,7 +65,7 @@ public class WebsiteDownloader
                 catch (WebException ex)
                 {
                     //Log the exception or do any other error handling
-                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message);
+                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message + "\n  resources may be hosted on external servers!!!");
                 }
             }
         }
@@ -73,10 +73,19 @@ public class WebsiteDownloader
 
     static void DownloadFile(Uri baseUrl, string url, string path)
     {
-        using (var client = new WebClient())
+        if (!string.IsNullOrEmpty(url))
         {
-            Uri absoluteUrl = new Uri(baseUrl, url);
-            client.DownloadFile(absoluteUrl, path);
+            if (!Uri.IsWellFormedUriString(url, UriKind.Absolute))
+            {
+                // if the url is not absolute, construct a new Uri using the baseUrl
+                url = new Uri(baseUrl, url).AbsoluteUri;
+            }
+
+            using (var client = new WebClient())
+            {
+                Uri absoluteUrl = new Uri(url);
+                client.DownloadFile(absoluteUrl, path);
+            }
         }
     }
 }
