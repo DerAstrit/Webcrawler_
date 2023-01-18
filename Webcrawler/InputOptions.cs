@@ -50,5 +50,6 @@ public class InputOptions
         Linkfinder linkFinder = new Linkfinder();
         string? url = linkFinder.InputUrl();
         linkFinder.ShowStats(url);
+        Console.ReadLine();
     }
 }

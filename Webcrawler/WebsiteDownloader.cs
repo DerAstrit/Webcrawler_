@@ -65,7 +65,7 @@ public class WebsiteDownloader
                 catch (WebException ex)
                 {
                     //Log the exception or do any other error handling
-                    
+                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message);
                 }
             }
         }
