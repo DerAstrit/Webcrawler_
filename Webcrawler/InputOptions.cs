@@ -53,7 +53,7 @@ public class InputOptions
         WebsiteDownloader websiteDownloader = new WebsiteDownloader(); 
         
         // Put a Limit for Pages to download
-        Console.WriteLine("Enter how many Links you want to download\n");
+        Console.WriteLine("\nEnter how many Links you want to download\n");
         int limit = Convert.ToInt32(Console.ReadLine());
         
         // Get all the Links and save them to links
@@ -82,7 +82,7 @@ public class InputOptions
         string? url = linkFinder.InputUrl();
         linkFinder.ShowStats(url);
         
-        Console.WriteLine("To Exit the Webcrawler press any key");
+        Console.WriteLine("\nTo Exit the Webcrawler press any key");
         Console.ReadLine();
     }
 }
