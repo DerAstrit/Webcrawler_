@@ -5,8 +5,8 @@ namespace Webcrawler;
 
 public class CrawlManager
 {
-    InputOptions _inputOptions = new InputOptions();
-    WebsiteDownloader _websiteDownloader = new WebsiteDownloader();
+    InputOptions inputOptions = new InputOptions();
+    
     
     public void Intro()
     { 
@@ -20,8 +20,8 @@ public class CrawlManager
     public void Start()
     {
         Intro();
-        _inputOptions.WriteOptions();
-        _inputOptions.SelectOptions();
+        inputOptions.WriteOptions();
+        inputOptions.SelectOptions();
     }
 
 }

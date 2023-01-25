@@ -1,7 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Net;
-using HtmlAgilityPack;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace Webcrawler;

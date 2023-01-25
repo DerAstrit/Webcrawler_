@@ -33,6 +33,8 @@ public class InputOptions
 
         }
     }
+    
+    // Single mode 
     public void Single()
         {
             Linkfinder linkFinder = new Linkfinder(); 
@@ -41,19 +43,27 @@ public class InputOptions
             websiteDownloader.DownloadWebsite(url);
         }
 
+    
+    
+    // Multi mode
     public void Multi()
     {
-        Console.WriteLine("Enter how many Links you want to download\n");
-        int limit = Convert.ToInt32(Console.ReadLine());
-        
+        // Create a new LinkFinder and Websitedownloader instance
         Linkfinder linkFinder = new Linkfinder(); 
         WebsiteDownloader websiteDownloader = new WebsiteDownloader(); 
         
+        // Put a Limit for Pages to download
+        Console.WriteLine("Enter how many Links you want to download\n");
+        int limit = Convert.ToInt32(Console.ReadLine());
+        
+        // Get all the Links and save them to links
         string? url = linkFinder.InputUrl();
         var links = Linkfinder.ParseLinks(url);
         
+        // Limit the Links to the Limit set
         List<string> limitedLinks = links.Take(limit).ToList();
 
+        // Foreach Link in Links Download
         limitedLinks.ForEach(link => {
             Uri uri;
             if (Uri.TryCreate(link, UriKind.Absolute, out uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
@@ -64,11 +74,15 @@ public class InputOptions
 
     }
     
+    
+    //Stats mode
     public void Stats()
     {
         Linkfinder linkFinder = new Linkfinder();
         string? url = linkFinder.InputUrl();
         linkFinder.ShowStats(url);
+        
+        Console.WriteLine("To Exit the Webcrawler press any key");
         Console.ReadLine();
     }
 }
