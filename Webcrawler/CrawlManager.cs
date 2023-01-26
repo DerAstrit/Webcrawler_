@@ -5,7 +5,7 @@ namespace Webcrawler;
 
 public class CrawlManager
 {
-    InputOptions inputOptions = new InputOptions();
+    
     
     
     public void Intro()
@@ -14,11 +14,11 @@ public class CrawlManager
                         "This Tool is for learn purpuses and should not be abused \n" +
                         "THANKS!\n" +
                         "");
-
     }
 
     public void Start()
     {
+        InputOptions inputOptions = new InputOptions();
         Intro();
         inputOptions.WriteOptions();
         inputOptions.SelectOptions();

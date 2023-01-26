@@ -15,7 +15,7 @@ public class WebsiteDownloader
         string? dir = Console.ReadLine();
         if (!Directory.Exists(dir))
         {
-            Directory.CreateDirectory(dir);
+            if (dir != null) Directory.CreateDirectory(dir);
         }
 
 
@@ -27,78 +27,81 @@ public class WebsiteDownloader
 
 
         // Save HTML to file
-        string? htmlPath = $"{dir}/index.html";
+        var htmlPath = $"{dir}/index.html";
         File.WriteAllText(htmlPath, doc.DocumentNode.OuterHtml);
 
 
 
         // Find all linked CSS, JS and image files
-        Uri baseUrl = new Uri(url);
-
-        HtmlNodeCollection cssNodes = doc.DocumentNode.SelectNodes("//link[@rel='stylesheet']");
-        HtmlNodeCollection jsNodes = doc.DocumentNode.SelectNodes("//script[@src]");
-        HtmlNodeCollection imgNodes = doc.DocumentNode.SelectNodes("//img");
-
-        // Download and save CSS files
-        if (cssNodes != null)
+        if (url != null)
         {
-            foreach (var cssNode in cssNodes)
-            {
-                string cssUrl = cssNode.Attributes["href"].Value;
-                string cssPath = $"{dir}/{Path.GetFileName(cssUrl)}";
+            Uri baseUrl = new Uri(url);
 
-                try
+            HtmlNodeCollection cssNodes = doc.DocumentNode.SelectNodes("//link[@rel='stylesheet']");
+            HtmlNodeCollection jsNodes = doc.DocumentNode.SelectNodes("//script[@src]");
+            HtmlNodeCollection imgNodes = doc.DocumentNode.SelectNodes("//img");
+
+            // Download and save CSS files
+            if (cssNodes != null)
+            {
+                foreach (var cssNode in cssNodes)
                 {
-                    DownloadFile(baseUrl, cssUrl, cssPath);
-                }
-                catch (WebException ex)
-                {
-                    //Log the exception or do any other error handling
-                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message +
-                                      "\n  resources may be hosted on external servers!!!");
+                    string cssUrl = cssNode.Attributes["href"].Value;
+                    string cssPath = $"{dir}/{Path.GetFileName(cssUrl)}";
+
+                    try
+                    {
+                        DownloadFile(baseUrl, cssUrl, cssPath);
+                    }
+                    catch (WebException ex)
+                    {
+                        //Log the exception or do any other error handling
+                        Console.WriteLine("An error occurred while trying to download a file: " + ex.Message +
+                                          "\n  resources may be hosted on external servers!!!");
+                    }
                 }
             }
-        }
 
-        // Download and save image files
-        if (imgNodes != null)
-        {
-            foreach (var imgNode in imgNodes)
+            // Download and save image files
+            if (imgNodes != null)
             {
-                string imgUrl = imgNode.Attributes["src"].Value;
-                string imgPath = $"{dir}/{Path.GetFileName(imgUrl)}";
+                foreach (var imgNode in imgNodes)
+                {
+                    string imgUrl = imgNode.Attributes["src"].Value;
+                    string imgPath = $"{dir}/{Path.GetFileName(imgUrl)}";
 
-                try
-                {
-                    DownloadFile(baseUrl, imgUrl, imgPath);
-                }
-                catch (WebException ex)
-                {
-                    //Log the exception or do any other error handling
-                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message +
-                                      "\n  resources may be hosted on external servers!!!");
+                    try
+                    {
+                        DownloadFile(baseUrl, imgUrl, imgPath);
+                    }
+                    catch (WebException ex)
+                    {
+                        //Log the exception or do any other error handling
+                        Console.WriteLine("An error occurred while trying to download a file: " + ex.Message +
+                                          "\n  resources may be hosted on external servers!!!");
+                    }
                 }
             }
-        }
 
 
-        // Download and save image files
-        if (jsNodes != null)
-        {
-            foreach (var jsNode in jsNodes)
+            // Download and save image files
+            if (jsNodes != null)
             {
-                string jsUrl = jsNode.Attributes["src"].Value;
-                string jsPath = $"{dir}/{Path.GetFileName(jsUrl)}";
+                foreach (var jsNode in jsNodes)
+                {
+                    string jsUrl = jsNode.Attributes["src"].Value;
+                    string jsPath = $"{dir}/{Path.GetFileName(jsUrl)}";
 
-                try
-                {
-                    DownloadFile(baseUrl, jsUrl, jsPath);
-                }
-                catch (WebException ex)
-                {
-                    //Log the exception or do any other error handling
-                    Console.WriteLine("An error occurred while trying to download a file: " + ex.Message +
-                                      "\n  resources may be hosted on external servers!!!");
+                    try
+                    {
+                        DownloadFile(baseUrl, jsUrl, jsPath);
+                    }
+                    catch (WebException ex)
+                    {
+                        //Log the exception or do any other error handling
+                        Console.WriteLine("An error occurred while trying to download a file: " + ex.Message +
+                                          "\n  resources may be hosted on external servers!!!");
+                    }
                 }
             }
         }

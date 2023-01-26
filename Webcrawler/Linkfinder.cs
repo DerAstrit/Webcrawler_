@@ -1,6 +1,4 @@
 ﻿using HtmlAgilityPack;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 
 namespace Webcrawler;
 
@@ -33,11 +31,12 @@ public class Linkfinder
         return links;
 
     }
+    
 
     public void ShowStats(string? url)
     {
         List<string> links = ParseLinks(url);
-        links.ForEach(link => Console.WriteLine(link));
+        links.ForEach(Console.WriteLine);
         int linkCount = links.Count;
         Console.WriteLine("\n" +
                           "There were " +
