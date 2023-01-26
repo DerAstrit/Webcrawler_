@@ -41,6 +41,16 @@ public class WebsiteDownloader
             HtmlNodeCollection jsNodes = doc.DocumentNode.SelectNodes("//script[@src]");
             HtmlNodeCollection imgNodes = doc.DocumentNode.SelectNodes("//img");
 
+            
+            SavecssNodes(cssNodes, dir, baseUrl);
+            SaveImgNodes(imgNodes, dir, baseUrl);
+            SaveJsNodes(jsNodes, dir, baseUrl);
+            
+          
+        }
+
+        void SavecssNodes(HtmlNodeCollection cssNodes, string dir, Uri baseUrl)
+        {
             // Download and save CSS files
             if (cssNodes != null)
             {
@@ -61,7 +71,10 @@ public class WebsiteDownloader
                     }
                 }
             }
+        }
 
+        void SaveImgNodes(HtmlNodeCollection imgNodes, string dir, Uri baseUrl)
+        {
             // Download and save image files
             if (imgNodes != null)
             {
@@ -82,8 +95,10 @@ public class WebsiteDownloader
                     }
                 }
             }
+        }
 
-
+        void SaveJsNodes(HtmlNodeCollection jsNodes, string dir, Uri baseUrl)
+        {
             // Download and save image files
             if (jsNodes != null)
             {

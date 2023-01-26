@@ -54,7 +54,7 @@ public class InputOptions
         
         // Put a Limit for Pages to download
         Console.WriteLine("\nEnter how many Links you want to download\n");
-        int limit = Convert.ToInt32(Console.ReadLine());
+        int limit = 1 + Convert.ToInt32(Console.ReadLine());
         
         // Get all the Links and save them to links
         string? url = linkFinder.InputUrl();
