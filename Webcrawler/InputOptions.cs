@@ -35,9 +35,9 @@ public class InputOptions
     }
     
     // Single mode 
-    public void Single()
+    private void Single()
         {
-            Linkfinder linkFinder = new Linkfinder(); 
+            LinkFinder linkFinder = new LinkFinder(); 
             WebsiteDownloader websiteDownloader = new WebsiteDownloader(); 
             string? url = linkFinder.InputUrl(); 
             websiteDownloader.DownloadWebsite(url);
@@ -46,27 +46,26 @@ public class InputOptions
     
     
     // Multi mode
-    public void Multi()
+    private void Multi()
     {
-        // Create a new LinkFinder and Websitedownloader instance
-        Linkfinder linkFinder = new Linkfinder(); 
+        // Create a new LinkFinder and WebsiteDownloader instance
+        LinkFinder linkFinder = new LinkFinder(); 
         WebsiteDownloader websiteDownloader = new WebsiteDownloader(); 
         
         // Put a Limit for Pages to download
         Console.WriteLine("\nEnter how many Links you want to download\n");
-        int limit = 1 + Convert.ToInt32(Console.ReadLine());
+        int limit = Convert.ToInt32(Console.ReadLine());
         
         // Get all the Links and save them to links
         string? url = linkFinder.InputUrl();
-        var links = Linkfinder.ParseLinks(url);
+        var links = LinkFinder.ParseLinks(url);
         
         // Limit the Links to the Limit set
         List<string> limitedLinks = links.Take(limit).ToList();
 
         // Foreach Link in Links Download
         limitedLinks.ForEach(link => {
-            Uri uri;
-            if (Uri.TryCreate(link, UriKind.Absolute, out uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
+            if (Uri.TryCreate(link, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps))
             {
                 websiteDownloader.DownloadWebsite(link);
             }
@@ -76,9 +75,9 @@ public class InputOptions
     
     
     //Stats mode
-    public void Stats()
+    private void Stats()
     {
-        Linkfinder linkFinder = new Linkfinder();
+        LinkFinder linkFinder = new LinkFinder();
         string? url = linkFinder.InputUrl();
         linkFinder.ShowStats(url);
         

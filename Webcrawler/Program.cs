@@ -1,8 +1,5 @@
-﻿
-using Webcrawler;
+﻿using Webcrawler;
 
-CrawlManager crawlManager =new CrawlManager();
-
+CrawlManager crawlManager = new CrawlManager();
 
 crawlManager.Start();
-

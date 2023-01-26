@@ -2,9 +2,8 @@
 
 namespace Webcrawler;
 
-public class Linkfinder
+public class LinkFinder
 {
-
 
     public string? InputUrl()
     {
@@ -41,7 +40,7 @@ public class Linkfinder
         Console.WriteLine("\n" +
                           "There were " +
                           "" + linkCount
-                          + " Url's on this Page\n");
+                          + " Urls on this Page\n");
     }
     
 }

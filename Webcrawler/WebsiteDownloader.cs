@@ -22,7 +22,7 @@ public class WebsiteDownloader
 
         // Download HTML from website
         HtmlWeb web = new HtmlWeb();
-        var doc = web.Load(url);
+        HtmlDocument? doc = web.Load(url);
 
 
 
@@ -37,19 +37,20 @@ public class WebsiteDownloader
         {
             Uri baseUrl = new Uri(url);
 
-            HtmlNodeCollection cssNodes = doc.DocumentNode.SelectNodes("//link[@rel='stylesheet']");
-            HtmlNodeCollection jsNodes = doc.DocumentNode.SelectNodes("//script[@src]");
-            HtmlNodeCollection imgNodes = doc.DocumentNode.SelectNodes("//img");
+            HtmlNodeCollection? cssNodes = doc.DocumentNode.SelectNodes("//link[@rel='stylesheet']");
+            HtmlNodeCollection? jsNodes = doc.DocumentNode.SelectNodes("//script[@src]");
+            HtmlNodeCollection? imgNodes = doc.DocumentNode.SelectNodes("//img");
 
-            
-            SavecssNodes(cssNodes, dir, baseUrl);
-            SaveImgNodes(imgNodes, dir, baseUrl);
-            SaveJsNodes(jsNodes, dir, baseUrl);
-            
-          
+
+            if (dir != null)
+            {
+                SaveCssNodes(cssNodes, dir, baseUrl);
+                SaveImgNodes(imgNodes, dir, baseUrl);
+                SaveJsNodes(jsNodes, dir, baseUrl);
+            }
         }
 
-        void SavecssNodes(HtmlNodeCollection cssNodes, string dir, Uri baseUrl)
+        void SaveCssNodes(HtmlNodeCollection? cssNodes, string directoryName, Uri baseUrl)
         {
             // Download and save CSS files
             if (cssNodes != null)
@@ -57,7 +58,7 @@ public class WebsiteDownloader
                 foreach (var cssNode in cssNodes)
                 {
                     string cssUrl = cssNode.Attributes["href"].Value;
-                    string cssPath = $"{dir}/{Path.GetFileName(cssUrl)}";
+                    string cssPath = $"{directoryName}/{Path.GetFileName(cssUrl)}";
 
                     try
                     {
@@ -73,7 +74,7 @@ public class WebsiteDownloader
             }
         }
 
-        void SaveImgNodes(HtmlNodeCollection imgNodes, string dir, Uri baseUrl)
+        void SaveImgNodes(HtmlNodeCollection? imgNodes, string directoryName, Uri baseUrl)
         {
             // Download and save image files
             if (imgNodes != null)
@@ -81,7 +82,7 @@ public class WebsiteDownloader
                 foreach (var imgNode in imgNodes)
                 {
                     string imgUrl = imgNode.Attributes["src"].Value;
-                    string imgPath = $"{dir}/{Path.GetFileName(imgUrl)}";
+                    string imgPath = $"{directoryName}/{Path.GetFileName(imgUrl)}";
 
                     try
                     {
@@ -97,7 +98,7 @@ public class WebsiteDownloader
             }
         }
 
-        void SaveJsNodes(HtmlNodeCollection jsNodes, string dir, Uri baseUrl)
+        void SaveJsNodes(HtmlNodeCollection? jsNodes, string directoryName, Uri baseUrl)
         {
             // Download and save image files
             if (jsNodes != null)
@@ -105,7 +106,7 @@ public class WebsiteDownloader
                 foreach (var jsNode in jsNodes)
                 {
                     string jsUrl = jsNode.Attributes["src"].Value;
-                    string jsPath = $"{dir}/{Path.GetFileName(jsUrl)}";
+                    string jsPath = $"{directoryName}/{Path.GetFileName(jsUrl)}";
 
                     try
                     {
@@ -132,11 +133,9 @@ public class WebsiteDownloader
                     url = new Uri(baseUrl, url).AbsoluteUri;
                 }
 
-                using (var client = new WebClient())
-                {
-                    Uri absoluteUrl = new Uri(url);
-                    client.DownloadFile(absoluteUrl, path);
-                }
+                WebClient client = new WebClient();
+                Uri absoluteUrl = new Uri(url);
+                client.DownloadFile(absoluteUrl, path);
             }
         }
     }
